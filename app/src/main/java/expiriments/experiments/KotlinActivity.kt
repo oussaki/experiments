@@ -3,19 +3,16 @@ package expiriments.experiments
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.example.Tarakha
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
-import org.jetbrains.anko.coroutines.experimental.bg
-import java.sql.Time
 import java.util.*
-import java.util.concurrent.TimeUnit
 
+@Tarakha(id = 1, name = "something")
 class KotlinActivity : AppCompatActivity() {
     lateinit var btn_coroutines: Button
     lateinit var btn_threads: Button
@@ -25,6 +22,7 @@ class KotlinActivity : AppCompatActivity() {
     var ok: OkHttpClient? = null;
 
     fun init() {
+
         ok = OkHttpClient.Builder().build();
         btn_coroutines = findViewById(R.id.btn_coroutines) as Button
         btn_threads = findViewById(R.id.btn_threads) as Button
