@@ -13,26 +13,30 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 
-@SupportedAnnotationTypes({"com.example.Tarakha"})
+@SupportedAnnotationTypes("com.example.Tarakha")
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class myprocessor extends AbstractProcessor {
+
+
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
         StringBuilder builder = new StringBuilder()
-                .append("package com.example;nn")
-                .append("public class GeneratedClass {nn") // open class
-                .append("tpublic String getMessage() {n") // open method
-                .append("ttreturn \"");
+                .append("package com.example; \n")
+                .append("public class GeneratedClass {\n \n") // open class
+                .append("  public String getMessage() {\n") // open method
+                .append("   return \"");
         // for each javax.lang.model.element.Element annotated with the CustomAnnotation
         for (Element element : roundEnvironment.getElementsAnnotatedWith(Tarakha.class)) {
             String objectType = element.getSimpleName().toString();
+
             // this is appending to the return statement
-            builder.append(objectType).append(" says hello!\n");
+            builder.append(objectType).append(" says hello! "+  element.getAnnotation(Tarakha.class).name());
+            System.out.println(objectType+" says hello ");
         }
 
-        builder.append("\";n") // end return
-                .append("t}n") // close method
-                .append("}n"); // close class
+        builder.append("\"; \n") // end return
+                .append("} \n") // close method
+                .append("} \n"); // close class
 
         try { // write the file
             JavaFileObject source = processingEnv.getFiler().createSourceFile("com.example.generated.GeneratedClass");
@@ -44,6 +48,6 @@ public class myprocessor extends AbstractProcessor {
             // Note: calling e.printStackTrace() will print IO errors
             // that occur from the file already existing after its first run, this is normal
         }
-        return true;
+        return false;
     }
 }

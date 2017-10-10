@@ -12,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.*
 
-@Tarakha(id = 1, name = "something")
 class KotlinActivity : AppCompatActivity() {
     lateinit var btn_coroutines: Button
     lateinit var btn_threads: Button
