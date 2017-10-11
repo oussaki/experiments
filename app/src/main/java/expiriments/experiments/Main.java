@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.Tarakha;
+import com.example.generated.HelloWorld;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,7 +34,6 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ((MyApp) getApplication()).getNetComponent().inject(this);
-
         startActivity(new Intent(this, KotlinActivity.class));
     }
 

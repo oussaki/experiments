@@ -46,6 +46,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'org.jetbrains.anko:anko-coroutines:0.10.1'
+
     testCompile 'junit:junit:4.12'
     compile project(':anoprocessor')
     annotationProcessor project(':anoprocessor')
