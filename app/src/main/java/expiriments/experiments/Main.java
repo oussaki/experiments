@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.GeneratedClass;
 import com.example.Tarakha;
 
 import javax.inject.Inject;
@@ -33,7 +34,8 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ((MyApp) getApplication()).getNetComponent().inject(this);
-
+        GeneratedClass generatedClass = new GeneratedClass();
+        generatedClass.getMessage();
         startActivity(new Intent(this, KotlinActivity.class));
     }
 
