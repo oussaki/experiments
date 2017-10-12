@@ -10,6 +10,8 @@ import java.io.Writer;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
+import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -18,12 +20,22 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes("com.example.Tarakha")
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class myprocessor extends AbstractProcessor {
+    private Filer filer;
+    private Messager messager;
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnvironment) {
+        super.init(processingEnvironment);
+        filer = processingEnvironment.getFiler();
+        messager = processingEnvironment.getMessager();
+    }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
@@ -37,7 +49,6 @@ public class myprocessor extends AbstractProcessor {
                 .build();
 
 
-
         TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 .addMethod(main)
@@ -45,10 +56,13 @@ public class myprocessor extends AbstractProcessor {
 
         JavaFile javaFile = JavaFile.builder("com.example.generated", helloWorld)
                 .build();
+
         try {
-            javaFile.writeTo(processingEnv.getFiler());
+            javaFile.writeTo(filer);
         } catch (IOException e) {
-            e.printStackTrace();
+            messager.printMessage(Diagnostic.Kind.ERROR,"");
+
+                    e.printStackTrace();
         }
 
 
@@ -62,9 +76,9 @@ public class myprocessor extends AbstractProcessor {
             String objectType = element.getSimpleName().toString();
 
             // this is appending to the return statement
-            builder.append(objectType).append(" says hello! "+  element.getAnnotation(Tarakha.class).name()
-            +", id :"+ element.getAnnotation(Tarakha.class).id());
-            System.out.println(objectType+" says hello ");
+            builder.append(objectType).append(" says hello! " + element.getAnnotation(Tarakha.class).name()
+                    + ", id :" + element.getAnnotation(Tarakha.class).id());
+            System.out.println(objectType + " says hello ");
         }
 
         builder.append("\"; \n") // end return

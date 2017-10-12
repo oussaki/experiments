@@ -14,6 +14,5 @@ public @interface Tarakha {
     int id();
     String name();
     String engineer() default "[unassigned]";
-
     String date() default "[unimplemented]";
 }

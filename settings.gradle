@@ -1,1 +1,1 @@
-include ':app', ':anoprocessor'
+include ':app', ':anoprocessor', ':navigi'
