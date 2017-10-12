@@ -17,8 +17,20 @@ class KotlinActivity : AppCompatActivity() {
     lateinit var btn_threads: Button
     lateinit var btn_all: Button
     lateinit var txt_log: TextView
+    fun TextView.CounterDown() {
+        var v: TextView = this
+        launch(UI) {
+            // launch coroutine in UI context
+            for (i in 10 downTo 1) { // countdown from 10 to 1
+                v.text = "Countdown $i ..." // update text
+                delay(500) // wait half a second
+            }
+            v.text = "Done!"
+        }
+    }
 
     var ok: OkHttpClient? = null;
+
 
     fun init() {
 
@@ -60,6 +72,7 @@ class KotlinActivity : AppCompatActivity() {
             btn_coroutines.performClick()
         })
         btn_threads.setOnClickListener({ _ ->
+            txt_log.CounterDown()
             threads_network_call()
         })
 
