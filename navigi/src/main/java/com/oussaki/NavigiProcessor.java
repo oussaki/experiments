@@ -19,30 +19,25 @@ public class NavigiProcessor extends AbstractProcessor {
     private Filer filer;
     private Messager messager;
 
-    @Override
-    public synchronized void init(ProcessingEnvironment processingEnvironment) {
-        super.init(processingEnvironment);
-        filer = processingEnvironment.getFiler();
-        messager = processingEnvironment.getMessager();
-    }
+
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
 
         //
-        for (Element element : roundEnvironment.getElementsAnnotatedWith(Navigi.class)) {
-            String action = element.getAnnotation(Navigi.class).action();
-            String _class = element.getAnnotation(Navigi.class).target().toString();
+//        for (Element element : roundEnvironment.getElementsAnnotatedWith(Navigi.class)) {
+//            String action = element.getAnnotation(Navigi.class).action();
+//            String _class = element.getAnnotation(Navigi.class).target().toString();
+//
+//            TypeSpec.classBuilder("Navigi")
+//                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+//                    .addField(TypeName.VOID, "Hello", Modifier.PUBLIC)
+//                    .build();
+//
+//        }
 
-            TypeSpec.classBuilder("Navigi")
-                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                    .addField(TypeName.VOID, "Hello", Modifier.PUBLIC)
-                    .build();
-
-        }
 
 
-
-        return false;
+        return true;
     }
 }

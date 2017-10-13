@@ -13,7 +13,10 @@ import okhttp3.Request
 import java.util.*
 
 class KotlinActivity : AppCompatActivity() {
-    lateinit var btn_coroutines: Button
+    val v by lazy {
+        print("Lazy boy")
+    }
+   lateinit var btn_coroutines: Button
     lateinit var btn_threads: Button
     lateinit var btn_all: Button
     lateinit var txt_log: TextView
@@ -23,7 +26,7 @@ class KotlinActivity : AppCompatActivity() {
             // launch coroutine in UI context
             for (i in 10 downTo 1) { // countdown from 10 to 1
                 v.text = "Countdown $i ..." // update text
-                delay(500) // wait half a second
+                delay(1000) // wait half a second
             }
             v.text = "Done!"
         }
