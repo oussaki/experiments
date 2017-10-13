@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.example.Tarakha
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
 import okhttp3.OkHttpClient
@@ -36,8 +37,10 @@ class KotlinActivity : AppCompatActivity() {
 
 
     fun init() {
+         ok = OkHttpClient.Builder()
+                .addNetworkInterceptor(StethoInterceptor())
+                .build()
 
-        ok = OkHttpClient.Builder().build();
         btn_coroutines = findViewById(R.id.btn_coroutines) as Button
         btn_threads = findViewById(R.id.btn_threads) as Button
         btn_all = findViewById(R.id.btn_all) as Button

@@ -2,6 +2,8 @@ package expiriments.experiments;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
+
 import expiriments.experiments.injection.AppModule;
 import expiriments.experiments.injection.DaggerNetComponent;
 import expiriments.experiments.injection.NetComponent;
@@ -21,6 +23,8 @@ public class MyApp  extends Application{
                 .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
                 .netModule(new NetModule("https://api.github.com"))
                 .build();
+
+        Stetho.initializeWithDefaults(this);
 
 //        mNetComponent = DaggerNetComponent
     }
