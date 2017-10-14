@@ -1,11 +1,10 @@
 package expiriments.experiments
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import com.example.Tarakha
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
@@ -17,7 +16,7 @@ class KotlinActivity : AppCompatActivity() {
     val v by lazy {
         print("Lazy boy")
     }
-   lateinit var btn_coroutines: Button
+    lateinit var btn_coroutines: Button
     lateinit var btn_threads: Button
     lateinit var btn_all: Button
     lateinit var txt_log: TextView
@@ -37,7 +36,7 @@ class KotlinActivity : AppCompatActivity() {
 
 
     fun init() {
-         ok = OkHttpClient.Builder()
+        ok = OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
                 .build()
 
@@ -48,6 +47,7 @@ class KotlinActivity : AppCompatActivity() {
     }
 
     suspend fun coroutine_network_call(): Deferred<ByteArray?> {
+
         var async = async(CommonPool) {
             ok?.newCall(Request.Builder().url("http://reactivex.io/assets/Rx_Logo_S.png")
                     .build())?.execute()?.body()?.bytes()
@@ -62,7 +62,7 @@ class KotlinActivity : AppCompatActivity() {
             var b: ByteArray? = ok?.newCall(Request.Builder().url("http://reactivex.io/assets/Rx_Logo_S.png")
                     .build())?.execute()?.body()?.bytes()
             runOnUiThread {
-                var end: Long = Calendar.getInstance().timeInMillis
+                var end = Calendar.getInstance().timeInMillis
                 txt_log.append("\n Threads size of bytes is : ${b?.size} , Takes: ${end - start} ms")
             }
         }).start()
