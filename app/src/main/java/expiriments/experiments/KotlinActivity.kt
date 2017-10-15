@@ -1,11 +1,15 @@
 package expiriments.experiments
 
+import android.app.ActivityManager
+import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import expiriments.experiments.caching.ImageCache
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
 import okhttp3.OkHttpClient
@@ -66,6 +70,19 @@ class KotlinActivity : AppCompatActivity() {
                 txt_log.append("\n Threads size of bytes is : ${b?.size} , Takes: ${end - start} ms")
             }
         }).start()
+    }
+
+    lateinit var cache: ImageCache
+    fun init_cache() {
+        val memClass = (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).memoryClass
+        cache = ImageCache(memClass * 1024 * 1024 / 8)
+    }
+
+    fun cache_bitmap(k: String, bitmap: Bitmap) {
+        if (cache == null) {
+            init_cache()
+        }
+        cache.put(k, bitmap)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
