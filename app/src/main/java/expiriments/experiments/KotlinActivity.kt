@@ -1,5 +1,7 @@
 package expiriments.experiments
 
+import kotlinx.android.synthetic.main.activity_kotlin.*
+
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,10 +16,12 @@ import okhttp3.Request
 import java.util.*
 
 class KotlinActivity : AppCompatActivity() {
+
     val v by lazy {
         print("Lazy boy")
+
     }
-   lateinit var btn_coroutines: Button
+    lateinit var btn_coroutines: Button
     lateinit var btn_threads: Button
     lateinit var btn_all: Button
     lateinit var txt_log: TextView
@@ -37,7 +41,7 @@ class KotlinActivity : AppCompatActivity() {
 
 
     fun init() {
-         ok = OkHttpClient.Builder()
+        ok = OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
                 .build()
 
@@ -71,6 +75,10 @@ class KotlinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin)
+
+        this.txt_logx.text = "Hellow tarakha "
+
+
         init()
 
         btn_all.setOnClickListener({ _ ->
