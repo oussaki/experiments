@@ -1,14 +1,21 @@
 package expiriments.experiments
 
+
 import kotlinx.android.synthetic.main.activity_kotlin.*
 
 import android.support.v7.app.AppCompatActivity
+
+import android.app.ActivityManager
+import android.content.Context
+import android.graphics.Bitmap
+
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import com.example.Tarakha
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import expiriments.experiments.caching.ImageCache
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
 import okhttp3.OkHttpClient
@@ -52,6 +59,7 @@ class KotlinActivity : AppCompatActivity() {
     }
 
     suspend fun coroutine_network_call(): Deferred<ByteArray?> {
+
         var async = async(CommonPool) {
             ok?.newCall(Request.Builder().url("http://reactivex.io/assets/Rx_Logo_S.png")
                     .build())?.execute()?.body()?.bytes()
@@ -66,10 +74,23 @@ class KotlinActivity : AppCompatActivity() {
             var b: ByteArray? = ok?.newCall(Request.Builder().url("http://reactivex.io/assets/Rx_Logo_S.png")
                     .build())?.execute()?.body()?.bytes()
             runOnUiThread {
-                var end: Long = Calendar.getInstance().timeInMillis
+                var end = Calendar.getInstance().timeInMillis
                 txt_log.append("\n Threads size of bytes is : ${b?.size} , Takes: ${end - start} ms")
             }
         }).start()
+    }
+
+    lateinit var cache: ImageCache
+    fun init_cache() {
+        val memClass = (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).memoryClass
+        cache = ImageCache(memClass * 1024 * 1024 / 8)
+    }
+
+    fun cache_bitmap(k: String, bitmap: Bitmap) {
+        if (cache == null) {
+            init_cache()
+        }
+        cache.put(k, bitmap)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

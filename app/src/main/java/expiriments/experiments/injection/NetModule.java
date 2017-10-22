@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by salih on 8/6/2017.
+ * Created by oussama on 8/6/2017.
  */
 @Module
 public class NetModule {
