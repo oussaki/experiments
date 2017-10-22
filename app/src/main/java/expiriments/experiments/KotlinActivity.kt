@@ -3,7 +3,7 @@ package expiriments.experiments
 
 import kotlinx.android.synthetic.main.activity_kotlin.*
 
-import android.support.v7.app.AppCompatActivity
+
 
 import android.app.ActivityManager
 import android.content.Context
